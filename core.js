@@ -17,7 +17,7 @@
  */
 const AUTHORIZED_DOMAINS_MAP = {
   'cliente-themegames': [
-    'https://demo-gametheme2.lojaintegrada.com.br/'
+    'demo-gametheme2.lojaintegrada.com.br'
   ],
   'cliente-novo': [
     'localhost',
