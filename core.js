@@ -172,7 +172,10 @@ class ThemeEngine {
 
     const currentDomain = window.location.hostname;
     const isAuthorized = authorizedDomains.some(domain => {
-      const pattern = new RegExp(domain.replace(/\*/g, '.*') + '$');
+      const escapedDomain = domain
+      .replace(/\./g, '\\.')  // Escapa os pontos primeiro
+      .replace(/\*/g, '.*');   // Depois trata wildcards
+      const pattern = new RegExp('^' + escapedDomain + '$');
       return pattern.test(currentDomain);
     });
 
