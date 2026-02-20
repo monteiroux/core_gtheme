@@ -1,5 +1,3 @@
-$(document).ready(function(){
-
 class ThemeEngine {
   constructor(config) {
       this.config = config;
@@ -442,14 +440,18 @@ class ThemeEngine {
   }
 }
 
-// Instanciando e inicializando o tema
-if (window.CONFIG) {
-  const theme = new ThemeEngine(window.CONFIG);
-  if (theme.validateDomain()) {
-      theme.init();
+// Função de inicialização segura
+function initTheme() {
+  if (window.CONFIG && window.THEME_CLIENT_ID) {
+      const theme = new ThemeEngine(window.CONFIG);
+      if (theme.validateDomain()) {
+          theme.init();
+      }
+  } else {
+      // Se o config ainda não carregou, tenta novamente em 100ms
+      setTimeout(initTheme, 100);
   }
-} else {
-  console.error("❌ Objeto de configuração (CONFIG) não encontrado.");
 }
 
-});
+// Inicia o processo
+initTheme();
