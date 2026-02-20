@@ -15,16 +15,12 @@
  * DOMÍNIOS AUTORIZADOS (CORE - SEGURO)
  * ========================================
  */
+
+window.THEME_CLIENT_ID = 'theme-gift';
+
 const AUTHORIZED_DOMAINS_MAP = {
-  'cliente-themegames': [
+  'theme-gift': [
     'demo-gametheme2.lojaintegrada.com.br'
-  ],
-  'cliente-novo': [
-    'localhost',
-    '127.0.0.1',
-    'seu-dominio.com.br',
-    'www.seu-dominio.com.br',
-    '*.seu-dominio.com.br'
   ]
 };
 
