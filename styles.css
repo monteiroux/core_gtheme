@@ -2588,7 +2588,7 @@ a.atalho-menu {
    justify-content: center;
 }
 
-.pagina-produto .produto > .row-fluid > .span5 {
+.pagina-produto .produto > .row-fluid > .span5, .pagina-produto .produto > .row-fluid > .span6 {
    max-width: 100%;
    padding: 24px;
 }
