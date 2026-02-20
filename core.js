@@ -1,457 +1,775 @@
-class ThemeEngine {
-  constructor(config) {
-      this.config = config;
-      this.authorized = false;
-  }
+$(document).ready(function(){
 
-  static AUTHORIZED_DOMAINS_MAP = {
-      'theme-gift': [
-          'demo-gametheme2.lojaintegrada.com.br'
-      ]
-  };
-
-  validateDomain() {
-      const clientId = window.THEME_CLIENT_ID;
-      if (!clientId) {
-          console.error('❌ ThemeEngine: ID do cliente não definido.');
-          return false;
-      }
-
-      const authorizedDomains = ThemeEngine.AUTHORIZED_DOMAINS_MAP[clientId];
-      if (!authorizedDomains || authorizedDomains.length === 0) {
-          console.error(`❌ ThemeEngine: Nenhum domínio autorizado configurado para o cliente "${clientId}".`);
-          return false;
-      }
-
-      const currentDomain = window.location.hostname;
-      const isAuthorized = authorizedDomains.some(domain => {
-          const escapedDomain = domain.replace(/\./g, '\\.').replace(/\*/g, '.*');
-          const pattern = new RegExp('^' + escapedDomain + '$');
-          return pattern.test(currentDomain);
-      });
-
-      if (!isAuthorized) {
-          console.error(`❌ Domínio não autorizado: ${currentDomain}`);
-          console.warn(`Domínios permitidos para "${clientId}":`, authorizedDomains);
-          return false;
-      }
-
-      console.log(`✅ Domínio autorizado: ${currentDomain}`);
-      this.authorized = true;
-      return true;
-  }
-
-  init() {
-      if (!this.authorized) {
-          console.error("❌ ThemeEngine: A inicialização foi bloqueada porque o domínio não é autorizado.");
-          return;
-      }
-
-      $(document).ready(() => {
-          this.setupGeneralAdjustments();
-          this.setupWhatsappDropdown();
-          this.setupFooter();
-          this.setupCategorySlider();
-          this.setupProductSlider();
-          this.setupPaymentModal();
-          this.setupCategoryPage();
-          this.setupVideoSlider();
-          this.setupFaq();
-          this.setupBenefitsBar();
-          this.setupDiscountFlags();
-          this.setupResponsiveAdjustments();
-      });
-  }
-
-  setupGeneralAdjustments() {
-      $('#cabecalho .span8.busca-mobile').after(`
-          <div class="h-actions hidden-phone">
-              <a href="/conta/login" class="h-user">
-                  <img src="https://cdn.awsli.com.br/2923/2923109/arquivos/user.svg" alt="Minha conta">
-                  <span>Entrar</span>
-              </a>
+  // Ajustes gerais
+  
+  
+  
+  $('#cabecalho .span8.busca-mobile').after(`
+      <div class="h-actions hidden-phone">
+          <a href="/conta/login" class="h-user">
+              <img src="https://cdn.awsli.com.br/2923/2923109/arquivos/user.svg" alt="Minha conta">
+              <span>Entrar</span>
+          </a>
+      </div>
+  `);
+  
+  $('#cabecalho .conteudo-topo .inferior').after(`
+      <div class="h-actions visible-phone">
+          <a href="/conta/login" class="h-user">
+              <img src="https://cdn.awsli.com.br/2923/2923109/arquivos/user.svg" alt="Minha conta">
+              <span>Entrar</span>
+          </a>
+  
+          <div class="h-search visible-phone">
+              <img src="https://cdn.awsli.com.br/2923/2923109/arquivos/search.svg" alt="Buscar">
           </div>
-      `);
-
-      $('#cabecalho .conteudo-topo .inferior').after(`
-          <div class="h-actions visible-phone">
-              <a href="/conta/login" class="h-user">
-                  <img src="https://cdn.awsli.com.br/2923/2923109/arquivos/user.svg" alt="Minha conta">
-                  <span>Entrar</span>
-              </a>
-              <div class="h-search visible-phone">
-                  <img src="https://cdn.awsli.com.br/2923/2923109/arquivos/search.svg" alt="Buscar">
-              </div>
-              <div class="h-menu visible-phone">
-                  <img src="https://cdn.awsli.com.br/2923/2923109/arquivos/menu.svg" alt="Menu">
-              </div>
+  
+          <div class="h-menu visible-phone">
+              <img src="https://cdn.awsli.com.br/2923/2923109/arquivos/menu.svg" alt="Menu">
           </div>
-      `);
-
-      $('.banner.cheio .flex-direction-nav').prepend($('.banner.cheio .flex-control-nav'));
-      $('.selos li:first-child img').attr('src', 'https://cdn.awsli.com.br/2830/2830294/arquivos/site-protegido.svg');
-      $('#rodape>div:last-child .conteiner .row-fluid div:not(.span12)').before(`<div class="feito-pixelset"><a href="https://www.pixelset.com.br/" class="pixel-logo" target="_blank"><img src="https://pages.greatpages.com.br/www.pixelset.com.br/1768577291/imagens/desktop/3485744_1_176857398507036064.svg" alt="Pixelset"></a></div>`);
-      $('#rodape>div:last-child .row-fluid > div:last-child').attr('style', '');
-  }
-
-  setupWhatsappDropdown() {
-      const { whatsappNumbers } = this.config;
-      if (!whatsappNumbers || whatsappNumbers.length === 0) return;
-
-      const whatsappDropdownHtml = `
-          <div class="whatsapp-dropdown">
-              <button class="whatsapp-btn" type="button">
-                  <i class="fa fa-whatsapp"></i> Fale conosco pelo WhatsApp
-              </button>
-              <ul class="whatsapp-dropdown-menu" style="display: none;">
-                  ${whatsappNumbers.map(num => `
-                      <li>
+      </div>
+  `);
+  
+  $('.banner.cheio .flex-direction-nav').prepend($('.banner.cheio .flex-control-nav'));
+  
+  $('.selos li:first-child img').attr('src','https://cdn.awsli.com.br/2830/2830294/arquivos/site-protegido.svg');
+  $('#rodape>div:last-child .conteiner .row-fluid div:not(.span12)').before(`<div class="feito-pixelset"><a href="https://www.pixelset.com.br/" class="pixel-logo" target="_blank"><img src="https://pages.greatpages.com.br/www.pixelset.com.br/1768577291/imagens/desktop/3485744_1_176857398507036064.svg" alt="Pixelset"></a></div>`)
+  $('#rodape>div:last-child .row-fluid > div:last-child').attr('style','')
+  
+  
+      // Defina os números do WhatsApp como variáveis, agora com títulos
+  var whatsappNumbers = [
+      { title: "Vendas", phone: "5511999999999", display: "(11) 99999-9999" },
+      { title: "Suporte", phone: "5511988888888", display: "(11) 98888-8888" },
+      { title: "Financeiro", phone: "5511977777777", display: "(11) 97777-7777" }
+  ];
+  
+  var whatsappDropdownHtml = `
+  <div class="whatsapp-dropdown">
+      <button class="whatsapp-btn" type="button">
+          <i class="fa fa-whatsapp"></i> Fale conosco pelo WhatsApp
+      </button>
+      <ul class="whatsapp-dropdown-menu" style="display: none;">
+          ${whatsappNumbers.map(function(num) {
+              return `<li>
                           <strong>${num.title}:</strong> <a href="https://wa.me/${num.phone}" target="_blank">${num.display}</a>
-                      </li>
-                  `).join('')}
-              </ul>
-          </div>
-      `;
-
-      $('#rodape .institucional .lista-redes').after(whatsappDropdownHtml);
-
-      $(document).on('click', '.whatsapp-btn', function () {
-          const $dropdown = $(this).closest('.whatsapp-dropdown');
-          $dropdown.toggleClass('open');
-          const $menu = $dropdown.find('.whatsapp-dropdown-menu');
-          $menu.slideToggle(150);
-      });
-  }
-
-  setupFooter() {
-      const { atendimento } = this.config;
-      if (!atendimento) return;
-
-      const atendimentoHtml = `
-          <div class="span4 atendimento-rodape">
-              <span class="titulo">${atendimento.titulo}</span>
-              <ul>
-                  ${atendimento.horarios.map(h => `<li>${h}</li>`).join('')}
-                  <li style="margin-top:10px;">
-                      <img src="${atendimento.whatsapp.icon}" alt="${atendimento.whatsapp.alt}" style="vertical-align:middle; width:20px; margin-right:8px;">
-                      ${atendimento.whatsapp.number}
-                  </li>
-                  <li style="margin-top:5px;">
-                      <img src="${atendimento.email.icon}" alt="${atendimento.email.alt}" style="vertical-align:middle; width:20px; margin-right:8px;">
-                      <a href="mailto:${atendimento.email.address}" style="color:inherit; text-decoration:none;">${atendimento.email.address}</a>
-                  </li>
-              </ul>
-          </div>
-      `;
-
-      $('#rodape .sobre-loja-rodape').replaceWith(atendimentoHtml);
-  }
-
-  setupCategorySlider() {
-      const { categorias } = this.config;
-      if (!categorias || categorias.length === 0) return;
-
-      const categoriaLis = categorias.map(c => `
-          <li class="c-item">
-              <a href="${c.link}">
-                  <img src="${c.img}" alt="${c.alt}">
-              </a>
-          </li>
-      `).join('');
-
-      $('.pagina-inicial #listagemProdutos').before(`
-          <div class="c-slide-section">
-              <div class="c-slide-header">
-                  <h2 class="c-slide-title">Navegue por categoria</h2>
-                  <p class="c-slide-subtitle">Escolha abaixo uma categoria para explorar nossos jogos</p>
-              </div>
-              <ul class="c-slide">${categoriaLis}</ul>
-          </div>
-      `);
-
-      $('.c-slide').slick({
-          slidesToShow: 6,
-          slidesToScroll: 1,
-          arrows: true,
-          dots: false,
-          infinite: true,
-          responsive: [{
-              breakpoint: 768,
-              settings: { slidesToShow: 2 }
-          }]
-      });
-  }
-
-  setupProductSlider() {
-      $('#listagemProdutos .listagem-linha .flex-viewport').css({ overflow: 'visible' });
-      $('#listagemProdutos .listagem-linha.flexslider').removeClass('flexslider');
-      const $carousel = $('#listagemProdutos .produtos-carrossel');
-
-      if (!$carousel.hasClass('slick-initialized')) {
-          $carousel.removeAttr('style').find('li').removeAttr('style');
-          $carousel.slick({
-              slidesToShow: 5,
-              slidesToScroll: 1,
-              infinite: false,
-              arrows: true,
-              dots: false,
-              speed: 400,
-              draggable: true,
-              adaptiveHeight: false,
-              responsive: [{
-                  breakpoint: 768,
-                  settings: { slidesToShow: 2 }
-              }]
-          });
+                      </li>`;
+          }).join('')}
+      </ul>
+  </div>
+  `;
+  
+  $('#rodape .institucional .lista-redes').after(whatsappDropdownHtml);
+  
+  // Quando clicar no botão troca a classe do dropdown para abrir/fechar
+  $(document).on('click', '.whatsapp-btn', function() {
+      var $dropdown = $(this).closest('.whatsapp-dropdown');
+      $dropdown.toggleClass('open');
+      var $menu = $dropdown.find('.whatsapp-dropdown-menu');
+      if ($dropdown.hasClass('open')) {
+          $menu.slideDown(150);
+      } else {
+          $menu.slideUp(150);
       }
-  }
-
-  setupPaymentModal() {
-      $('.info-principal-produto').after('<button class="btn-forma-pagamento">Forma de pagamento</button>');
-      $('body').append(`
-          <div id="modal-pagamento">
-              <div class="modal-conteudo">
-                  <div class="modal-header">
-                      <h3>Formas de pagamento</h3>
-                      <button class="fechar-modal">✕</button>
-                  </div>
-              </div>
-          </div>
-      `);
-      $('.parcelas-produto').appendTo('#modal-pagamento .modal-conteudo');
-      $(document).on('click', '.btn-forma-pagamento, .fechar-modal, #modal-overlay', function (e) {
-          if ($(e.target).is('.btn-forma-pagamento')) {
-              $('#modal-overlay, #modal-pagamento').addClass('ativo');
-          } else {
-              $('#modal-overlay, #modal-pagamento').removeClass('ativo');
+  });
+  
+  // Variáveis editáveis para as informações do atendimento
+  var atendimentoTitulo = "Atendimento";
+  var horariosAtendimento = [
+      "Segunda a sexta: 11:30 ás 22:00h",
+      "Sabado: 10:00h ás 18:00h",
+      "Domingo e Feriado: Fechado"
+  ];
+  var whatsapp = {
+      icon: "https://cdn.awsli.com.br/2923/2923109/arquivos/whatsapp.svg",
+      alt: "Whatsapp",
+      number: "(11) 98765-4321"
+  };
+  var email = {
+      icon: "https://cdn.awsli.com.br/2923/2923109/arquivos/email.svg",
+      alt: "Email",
+      address: "contato@themegames.com.br"
+  };
+  
+  var atendimentoHtml = `
+      <div class="span4 atendimento-rodape">
+          <span class="titulo">${atendimentoTitulo}</span>
+          <ul>
+              <li>${horariosAtendimento[0]}</li>
+              <li>${horariosAtendimento[1]}</li>
+              <li>${horariosAtendimento[2]}</li>
+              <li style="margin-top:10px;">
+                  <img src="${whatsapp.icon}" alt="${whatsapp.alt}" style="vertical-align:middle; width:20px; margin-right:8px;">
+                  ${whatsapp.number}
+              </li>
+              <li style="margin-top:5px;">
+                  <img src="${email.icon}" alt="${email.alt}" style="vertical-align:middle; width:20px; margin-right:8px;">
+                  <a href="mailto:${email.address}" style="color:inherit; text-decoration:none;">${email.address}</a>
+              </li>
+          </ul>
+      </div>
+  `;
+  
+  $('#rodape .sobre-loja-rodape').replaceWith(atendimentoHtml);
+  
+  // Defina as variáveis das categorias (imagem, link e alt)
+  var categorias = [
+      {
+          img: "https://cdn.awsli.com.br/2923/2923109/arquivos/cat-01.png",
+          link: "#",
+          alt: "Categoria 01"
+      },
+      {
+          img: "https://cdn.awsli.com.br/2923/2923109/arquivos/cat-02.png",
+          link: "#",
+          alt: "Categoria 02"
+      },
+      {
+          img: "https://cdn.awsli.com.br/2923/2923109/arquivos/cat-03.png",
+          link: "#",
+          alt: "Categoria 03"
+      },
+      {
+          img: "https://cdn.awsli.com.br/2923/2923109/arquivos/cat-04.png",
+          link: "#",
+          alt: "Categoria 04"
+      },
+      {
+          img: "https://cdn.awsli.com.br/2923/2923109/arquivos/cat-05.png",
+          link: "#",
+          alt: "Categoria 05"
+      },
+      {
+          img: "https://cdn.awsli.com.br/2923/2923109/arquivos/cat-06.png",
+          link: "#",
+          alt: "Categoria 06"
+      },
+      {
+          img: "https://cdn.awsli.com.br/2923/2923109/arquivos/cat-07.png",
+          link: "#",
+          alt: "Categoria 07"
+      }
+  ];
+  
+  // Montar os <li> dinamicamente usando as variáveis
+  var categoriaLis = categorias.map(function(c){
+      return `<li class="c-item">
+          <a href="${c.link}">
+              <img src="${c.img}" alt="${c.alt}">
+          </a>
+      </li>`;
+  }).join('');
+  
+  // Adiciona o bloco antes de #listagemProdutos
+  $('.pagina-inicial #listagemProdutos').before(`
+  <div class="c-slide-section">
+      <div class="c-slide-header">
+          <h2 class="c-slide-title">
+              Navegue por categoria
+          </h2>
+          <p class="c-slide-subtitle">
+              Escolha abaixo uma categoria para explorar nossos jogos
+          </p>
+      </div>
+      <ul class="c-slide">
+          ${categoriaLis}
+      </ul>
+  </div>    
+  `);
+  
+  // Ativa o Slick Slider na lista de categorias
+  $('.c-slide').slick({
+      slidesToShow: 6,
+      slidesToScroll: 1,
+      arrows: true,
+      dots: false,
+      infinite: true,
+      responsive: [
+          {
+              breakpoint: 768,
+              settings: {
+                  slidesToShow: 2
+              }
           }
+      ]
+  });
+  
+  // --------- SLIDER
+  
+    // remove comportamento antigo
+    $('#listagemProdutos .listagem-linha .flex-viewport').css({
+      overflow: 'visible'
+    });
+  
+    $('#listagemProdutos .listagem-linha.flexslider').removeClass('flexslider');
+  
+    const $carousel = $('#listagemProdutos .produtos-carrossel');
+  
+    // evita iniciar duas vezes
+    if (!$carousel.hasClass('slick-initialized')) {
+  
+      // remove estilos inline do flexslider
+      $carousel.removeAttr('style');
+      $carousel.find('li').removeAttr('style');
+  
+      $carousel.slick({
+        slidesToShow: 5,
+        slidesToScroll: 1,
+        infinite: false,
+        arrows: true,
+        dots: false,
+        speed: 400,
+        draggable: true,
+        adaptiveHeight: false,
+  
+        responsive: [
+          {
+            breakpoint: 768,
+            settings: {
+              slidesToShow: 2
+            }
+          }
+        ]
       });
-  }
-
-  setupCategoryPage() {
-      $('.produto .conteiner-imagem #abreZoom').remove();
-      $('.pagina-categoria .conteudo > .titulo').prepend($('.pagina-categoria .breadcrumbs'));
-      $('.ordenar-listagem.topo > .row-fluid').prepend($('.pagina-categoria .conteudo > .titulo'));
-      $('.ordenar-listagem .row-fluid > .span6').removeClass('span6');
-
+  
+    }
+  
+  
+      // -----------------------------
+    // BOTÃO
+    // -----------------------------
+    $('.info-principal-produto').after(
+      '<button class="btn-forma-pagamento">Forma de pagamento</button>'
+    );
+  
+    // -----------------------------
+    // MODAL
+    // -----------------------------
+    $('body').append(`
+      <div id="modal-pagamento">
+        <div class="modal-conteudo"><div class="modal-header"><h3>Formas de pagamento</h3><button class="fechar-modal">✕</button></div></div>
+      </div>
+    `);
+    
+    $('.parcelas-produto').appendTo('#modal-pagamento .modal-conteudo');
+    $(document).on('click', '.btn-forma-pagamento', function () {
+      $('#modal-overlay, #modal-pagamento').addClass('ativo');
+    });
+    $(document).on('click', '.fechar-modal, #modal-overlay', function () {
+      $('#modal-overlay, #modal-pagamento').removeClass('ativo');
+    });
+  
+  $('.produto .conteiner-imagem #abreZoom').remove();
+  
+  $('.pagina-categoria .conteudo > .titulo').prepend($('.pagina-categoria .breadcrumbs'));
+    $('.ordenar-listagem.topo > .row-fluid').prepend($('.pagina-categoria .conteudo > .titulo'));
+    $('.ordenar-listagem .row-fluid > .span6').removeClass('span6');
+    
+    
+    $(document).ready(function () {
+  
+      /* ======================================================
+         1. CRIA BOTÃO FILTRAR
+      ====================================================== */
+  
       $('.ordenar-listagem.topo .row-fluid').append(`
-          <button class="btn btn-filtrar" data-toggle="modal" data-target="#modalFiltros">Filtrar</button>
+          <button class="btn btn-filtrar" data-toggle="modal" data-target="#modalFiltros">
+              Filtrar
+          </button>
       `);
-
+  
+  
+      /* ======================================================
+         2. CRIA MODAL
+      ====================================================== */
+  
       $('body').append(`
           <div id="modalFiltros" class="modal fade" tabindex="-1" style="display: none;">
               <div class="modal-dialog modal-lg">
                   <div class="modal-content">
+  
                       <div class="modal-header">
                           <h4 class="modal-title">Filtros</h4>
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
                       </div>
+  
                       <div class="modal-body">
-                          <div class="modal-ordenar"><h4>Ordenar por:</h4></div>
+                          <div class="modal-ordenar">
+                            <h4>Ordenar por:</h4>
+                          </div>
                           <div class="modal-filtros"></div>
                       </div>
+  
                   </div>
               </div>
           </div>
       `);
-
-      $('.ordenar-listagem.topo .dropdown-menu').appendTo('#modalFiltros .modal-ordenar');
+  
+  
+      /* ======================================================
+         3. MOVE DROPDOWN ORDENAR PARA O MODAL
+      ====================================================== */
+  
+      $('.ordenar-listagem.topo .dropdown-menu')
+          .appendTo('#modalFiltros .modal-ordenar');
+  
+  
+      /* ======================================================
+         4. MOVE TODOS OS FILTROS PARA O MODAL
+      ====================================================== */
+  
       $('.filtro-coluna').appendTo('#modalFiltros .modal-filtros');
-  }
-
-  setupVideoSlider() {
-      const { videosShorts } = this.config;
-      if (!videosShorts || videosShorts.length === 0) return;
-
-      const slides = videosShorts.map(id => `
-          <div class="depoimento-item">
-              <div class="video-wrapper">
-                  <iframe src="https://www.youtube.com/embed/${id}?enablejsapi=1&controls=0&rel=0&modestbranding=1&playsinline=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-              </div>
+  
+  });
+  
+  $('.pagina-inicial .vitrine-24033240').before($('.secao-banners .conteiner .banner.hidden-phone'));
+  $('#barraNewsletter .componente .texto-newsletter').prepend($('#barraNewsletter .componente .titulo'));
+  
+  $(function () {
+    /* =========================
+       🎬 VIDEOS EDITÁVEIS
+    ==========================*/
+    const videosShorts = [
+      'bIY1jAbcnKs',
+      'qq6Pf030N9I',
+      'M6tO6FvvXs0',
+      'TioQ0OGiz4w',
+      'bIY1jAbcnKs',
+      'FEuVOAckycU',
+    ];
+  
+    /* =========================
+       🧱 MONTA HTML DINÂMICO
+    ==========================*/
+  
+    let slides = '';
+  
+    videosShorts.forEach((id) => {
+      slides += `
+        <div class="depoimento-item">
+          <div class="video-wrapper">
+            <iframe
+              src="https://www.youtube.com/embed/${id}?enablejsapi=1&controls=0&rel=0&modestbranding=1&playsinline=1"
+              frameborder="0"
+              allow="autoplay; encrypted-media"
+              allowfullscreen>
+            </iframe>
           </div>
-      `).join('');
-
-      const htmlSlider = `
-          <section class="depoimentos-video">
-              <div class="container">
-                  <h2>Depoimentos em vídeo</h2>
-                  <p>Veja o que nossos clientes estão falando dos produtos.</p>
-                  <div class="slider-depoimentos">${slides}</div>
-              </div>
-          </section>
+        </div>
       `;
-
-      $('.pagina-inicial .vitrine-lancamento+ul').after(htmlSlider);
-
-      $('.slider-depoimentos').slick({
-          slidesToShow: 5,
-          slidesToScroll: 1,
-          arrows: true,
-          dots: false,
-          infinite: true,
-          adaptiveHeight: false,
-          responsive: [{
-              breakpoint: 768,
-              settings: { slidesToShow: 2 }
-          }]
+    });
+  
+    const htmlSlider = `
+      <section class="depoimentos-video">
+        <div class="container">
+          <h2>Depoimentos em vídeo</h2>
+          <p>Veja o que nossos clientes estão falando dos produtos.</p>
+  
+          <div class="slider-depoimentos">
+            ${slides}
+          </div>
+        </div>
+      </section>
+    `;
+  
+    /* =========================
+       📍 INSERE NO DOM
+    ==========================*/
+  
+    $('.pagina-inicial .vitrine-lancamento+ul').after(htmlSlider);
+  
+    /* =========================
+       🎯 INICIA SLICK
+    ==========================*/
+  
+    $('.slider-depoimentos').slick({
+      slidesToShow: 5,
+      slidesToScroll: 1,
+      arrows: true,
+      dots: false,
+      infinite: true,
+      adaptiveHeight: false,
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: { slidesToShow: 2 },
+        },
+      ],
+    });
+  
+    /* =========================
+       🧠 PAUSA VÍDEOS AO TROCAR
+    ==========================*/
+  
+    $('.slider-depoimentos').on('beforeChange', function () {
+      $('.slider-depoimentos iframe').each(function () {
+        this.contentWindow.postMessage(
+          '{"event":"command","func":"pauseVideo","args":""}',
+          '*'
+        );
       });
-
-      $('.slider-depoimentos').on('beforeChange', function () {
-          $('.slider-depoimentos iframe').each(function () {
-              this.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-          });
-      });
-  }
-
-  setupFaq() {
-      const { faqItems } = this.config;
-      if (!faqItems || faqItems.length === 0) return;
-
+    });
+  });
+  
+  // FAQ
+  
+  $(function () {
+  
+      /* =========================
+         📋 PERGUNTAS EDITÁVEIS
+      ==========================*/
+      const faqItems = [
+        {
+          pergunta: "Quais formas de pagamento vocês aceitam?",
+          resposta: "Aceitamos cartão de crédito, PIX e boleto bancário."
+        },
+        {
+          pergunta: "Como recebo meu jogo após a compra?",
+          resposta: "Você receberá o código de ativação por e-mail imediatamente após a confirmação do pagamento."
+        },
+        {
+          pergunta: "Os jogos são originais?",
+          resposta: "Sim. Todos os jogos são originais e possuem ativação oficial nas plataformas correspondentes."
+        },
+        {
+          pergunta: "Em quanto tempo meu pedido é liberado?",
+          resposta: "Pedidos pagos via PIX ou cartão são liberados automaticamente após aprovação."
+        },
+        {
+          pergunta: "Não recebi meu código. O que faço?",
+          resposta: "Verifique sua caixa de spam ou entre em contato com nosso suporte informando o número do pedido."
+        }
+      ];
+    
+    
+      /* =========================
+         🧱 MONTA HTML
+      ==========================*/
       let faqHTML = `
-          <section class="faq-section">
-              <div class="faq-container">
-                  <h2>FAQ</h2>
-                  <p class="faq-subtitle">Dúvidas frequentes</p>
-                  <div class="faq-list">
+        <section class="faq-section">
+          <div class="faq-container">
+            <h2>FAQ</h2>
+            <p class="faq-subtitle">Dúvidas frequentes</p>
+            <div class="faq-list">
       `;
-
-      faqItems.forEach(item => {
-          faqHTML += `
-              <div class="faq-item">
-                  <div class="faq-pergunta">
-                      <span>${item.pergunta}</span>
-                      <div class="faq-icon">+</div>
-                  </div>
-                  <div class="faq-resposta" style="display:none;">${item.resposta}</div>
-              </div>
-          `;
-      });
-
-      faqHTML += `</div></div></section>`;
-      $('.pagina-inicial #corpo').after(faqHTML);
-
-      $(document).on('click', '.faq-pergunta', function () {
-          const item = $(this).closest('.faq-item');
-          $('.faq-item').not(item).removeClass('active').find('.faq-resposta').slideUp(250);
-          $('.faq-item').not(item).find('.faq-icon').text('+');
-          item.toggleClass('active');
-          item.find('.faq-resposta').slideToggle(250);
-          item.find('.faq-icon').text(item.hasClass('active') ? '−' : '+');
-      });
-  }
-
-  setupBenefitsBar() {
-      const { beneficios } = this.config;
-      if (!beneficios || beneficios.length === 0) return;
-
-      let itensHTML = beneficios.map((item, index) => `
-          <div class="beneficio-item">
-              <div class="beneficio-icone">${item.icone}</div>
-              <div class="beneficio-texto">
-                  <strong>${item.titulo}</strong>
-                  <span>${item.texto}</span>
-              </div>
+    
+      faqItems.forEach((item, index) => {
+    
+        faqHTML += `
+          <div class="faq-item ${item.ativo ? 'active' : ''}">
+            <div class="faq-pergunta">
+              <span>${item.pergunta}</span>
+              <div class="faq-icon">${item.ativo ? '−' : '+'}</div>
+            </div>
+    
+            <div class="faq-resposta" style="${item.ativo ? 'display:block' : 'display:none'}">
+              ${item.resposta}
+            </div>
           </div>
-          ${index < beneficios.length - 1 ? '<div class="beneficio-divider"></div>' : ''}
-      `).join('');
-
-      const barraBeneficios = `
-          <section class="barra-beneficios">
-              <div class="beneficios-container">${itensHTML}</div>
-          </section>
-      `;
-
-      if ($('#barraNewsletter').length) {
-          $('#barraNewsletter').before(barraBeneficios);
-      } else {
-          $('#rodape').before(barraBeneficios);
-      }
-  }
-
-  setupDiscountFlags() {
-      $('.bandeiras-produto .bandeira-promocao').each(function () {
-          let texto = $(this).text().replace(/desconto/i, '').trim();
-          let numero = texto.replace('%', '').trim();
-          $(this).text(`-${numero}%`);
+        `;
       });
-  }
-
-  setupResponsiveAdjustments() {
-      if ($(window).width() > 768) {
-          // Desktop
-          $('.conteudo-topo .inferior').prepend($('.menu.superior'));
-          $('.produto').children().not('.row-fluid:first').appendTo('.conteiner-imagem');
-
-          // Image resolution adjustments
-          const imageSizes = [
-              { selector: '.listagem .imagem-produto img', from: '/300x300/', to: '/512x512/' },
-              { selector: '.mini-banner img', from: '/400x400/', to: '/800x800/' },
-              { selector: '.pagina-produto .miniaturas img', from: '/64x50/', to: '/100x100/' }
-          ];
-
-          imageSizes.forEach(s => {
-              $(s.selector).each(function () {
-                  const $img = $(this);
-                  const src = $img.attr('src');
-                  if (!src) return;
-                  const newSrc = src.replace(s.from, s.to);
-                  if (newSrc !== src) {
-                      $img.attr('src', newSrc);
-                      if ($img.attr('data-src')) $img.attr('data-src', newSrc);
-                      if ($img.attr('data-mediumimg')) $img.attr('data-mediumimg', $img.attr('data-mediumimg').replace(s.from, s.to));
-                      if ($img.attr('data-largeimg')) $img.attr('data-largeimg', $img.attr('data-largeimg').replace(s.from, s.to));
-                  }
-              });
-          });
-
-          $(window).on('load', () => {
-              $('.compre-junto__imagem img').each(function () {
-                  const $img = $(this);
-                  const src = $img.attr('src');
-                  if (!src) return;
-                  const newSrc = src.replace('/150x150/', '/300x300/');
-                  if (newSrc !== src) {
-                      $img.attr('src', newSrc);
-                      if ($img.attr('data-src')) $img.attr('data-src', newSrc);
-                  }
-              });
-          });
-
+    
+      faqHTML += `
+            </div>
+          </div>
+        </section>
+      `;
+    
+    
+      /* =========================
+         📍 INSERE NA HOME
+      ==========================*/
+      $('.pagina-inicial #corpo').after(faqHTML);
+    
+    
+      /* =========================
+         🎯 COMPORTAMENTO ACCORDION
+      ==========================*/
+      $(document).on('click', '.faq-pergunta', function () {
+    
+        const item = $(this).closest('.faq-item');
+    
+        // fecha outros
+        $('.faq-item').not(item).removeClass('active')
+          .find('.faq-resposta').slideUp(250);
+    
+        $('.faq-item').not(item)
+          .find('.faq-icon').text('+');
+    
+        // toggle atual
+        item.toggleClass('active');
+    
+        item.find('.faq-resposta').slideToggle(250);
+    
+        item.find('.faq-icon').text(
+          item.hasClass('active') ? '−' : '+'
+        );
+    
+      });
+    
+    });
+    
+  
+    $(function () {
+  
+      /* =========================
+         🧩 BENEFÍCIOS EDITÁVEIS
+      ==========================*/
+      const beneficios = [
+        {
+          icone: "🎧",
+          titulo: "Atendimento ao cliente",
+          texto: "Conte com suporte 24/7"
+        },
+        {
+          icone: "📦",
+          titulo: "Frete rápido e grátis",
+          texto: "Frete grátis em pedidos de US$150 ou mais."
+        },
+        {
+          icone: "👥",
+          titulo: "Indique um amigo",
+          texto: "Indique um amigo e ganhem 15% de desconto cada um."
+        },
+        {
+          icone: "🔒",
+          titulo: "Pagamento seguro",
+          texto: "Suas informações de pagamento são processadas com segurança."
+        }
+      ];
+    
+    
+      /* =========================
+         🧱 MONTA HTML
+      ==========================*/
+      let itensHTML = "";
+    
+      beneficios.forEach((item, index) => {
+    
+        itensHTML += `
+          <div class="beneficio-item">
+            <div class="beneficio-icone">${item.icone}</div>
+    
+            <div class="beneficio-texto">
+              <strong>${item.titulo}</strong>
+              <span>${item.texto}</span>
+            </div>
+          </div>
+        `;
+    
+        // divisória (menos no último)
+        if(index < beneficios.length - 1){
+          itensHTML += `<div class="beneficio-divider"></div>`;
+        }
+      });
+    
+    
+      const barraBeneficios = `
+        <section class="barra-beneficios">
+          <div class="beneficios-container">
+            ${itensHTML}
+          </div>
+        </section>
+      `;
+    
+    
+      /* =========================
+         📍 INSERÇÃO INTELIGENTE
+      ==========================*/
+    
+      if ($('#barraNewsletter').length) {
+        $('#barraNewsletter').before(barraBeneficios);
       } else {
-          // Mobile
-          $('.menu.superior').append(`<div class="close-menu"><img src="https://cdn.awsli.com.br/2923/2923109/arquivos/close.svg" alt="fechar"/></div>`);
-          $(document).on('click', '.close-menu', () => $('.menu.superior .nivel-um.active').removeClass('active'));
-          $(document).on('click', '.h-menu', () => $('.menu.superior .nivel-um').addClass('active'));
-          $(document).on('click', '.h-search', () => $('.conteudo-topo > .inferior').toggleClass('active'));
-          $('.h-menu').before($('#cabecalho .conteudo-topo .inferior .span4.hidden-phone > .carrinho'));
-
-          const botaoComprar = document.querySelector('.produto .acoes-produto .comprar');
-          if (!botaoComprar) return;
-          const sentinel = document.createElement('div');
-          sentinel.style.height = "1px";
-          botaoComprar.parentNode.insertBefore(sentinel, botaoComprar);
-          const observer = new IntersectionObserver(entries => {
-              entries.forEach(entry => {
-                  botaoComprar.classList.toggle('comprar-fixo', !entry.isIntersecting);
-              });
-          }, { root: null, threshold: 0 });
-          observer.observe(sentinel);
+        $('#rodape').before(barraBeneficios);
       }
-  }
-}
-
-// Função de inicialização segura
-function initTheme() {
-  if (window.CONFIG && window.THEME_CLIENT_ID) {
-      const theme = new ThemeEngine(window.CONFIG);
-      if (theme.validateDomain()) {
-          theme.init();
-      }
+    
+    });
+  
+    // Remove texto da bandeira
+  
+    $(function () {
+  
+      $('.bandeiras-produto .bandeira-promocao').each(function () {
+    
+        let texto = $(this).text();
+    
+        // remove a palavra "Desconto"
+        texto = texto.replace(/desconto/i, '').trim();
+    
+        // pega apenas o número
+        let numero = texto.replace('%', '').trim();
+    
+        // monta novo formato
+        $(this).text(`-${numero}%`);
+    
+      });
+    
+    });
+  
+  if ($(window).width() > 768) {
+  //Desktop
+      $('.conteudo-topo .inferior').prepend($('.menu.superior'));
+  
+      $('.produto')
+      .children()
+      .not('.row-fluid:first')
+      .appendTo('.conteiner-imagem');
+  
+      // Muda resolução das imagens
+  
+      $('.listagem .imagem-produto img').each(function () {
+          var $img = $(this);
+          var src = $img.attr('src');
+  
+          if (!src) return;
+  
+          // Troca 300x300 por 512x512
+          var newSrc = src.replace('/300x300/', '/512x512/');
+  
+          // Só atualiza se realmente mudou
+          if (newSrc !== src) {
+          $img.attr('src', newSrc);
+  
+          // Se existir lazyload com data-src, atualiza também
+          if ($img.attr('data-src')) {
+              $img.attr('data-src', newSrc);
+          }
+          }
+      });
+      
+      
+      $('.mini-banner img').each(function () {
+          var $img = $(this);
+          var src = $img.attr('src');
+  
+          if (!src) return;
+  
+          // Troca 400x400 por 800x800
+          var newSrc = src.replace('/400x400/', '/800x800/');
+  
+          if (newSrc !== src) {
+          $img.attr('src', newSrc);
+  
+          // Se houver lazyload com data-src
+          if ($img.attr('data-src')) {
+              $img.attr('data-src', newSrc);
+          }
+          }
+      });
+  
+      $('.pagina-produto .miniaturas img').each(function () {
+  
+          var $img = $(this);
+          var src = $img.attr('src');
+      
+          if (!src) return;
+      
+          // troca SOMENTE 64x50 por 100x100
+          var newSrc = src.replace('/64x50/', '/100x100/');
+      
+          if (newSrc !== src) {
+      
+              // src principal
+              $img.attr('src', newSrc);
+      
+              // lazy load (se existir)
+              if ($img.attr('data-src')) {
+                  $img.attr('data-src', newSrc);
+              }
+      
+              // atributos usados pela Loja Integrada
+              if ($img.attr('data-mediumimg')) {
+                  $img.attr(
+                      'data-mediumimg',
+                      $img.attr('data-mediumimg').replace('/64x50/', '/100x100/')
+                  );
+              }
+      
+              if ($img.attr('data-largeimg')) {
+                  $img.attr(
+                      'data-largeimg',
+                      $img.attr('data-largeimg').replace('/64x50/', '/100x100/')
+                  );
+              }
+          }
+      
+      });
+  
+      $(window).on('load', function () {
+  
+          $('.compre-junto__imagem img').each(function () {
+      
+              var $img = $(this);
+              var src = $img.attr('src');
+              if (!src) return;
+      
+              var newSrc = src.replace('/150x150/', '/300x300/');
+      
+              if (newSrc !== src) {
+                  $img.attr('src', newSrc);
+      
+                  if ($img.attr('data-src')) {
+                      $img.attr('data-src', newSrc);
+                  }
+              }
+          });
+      
+      });
+      
+  
+  //Fim desktop
   } else {
-      // Se o config ainda não carregou, tenta novamente em 100ms
-      setTimeout(initTheme, 100);
+  //Mobile    
+  $('.menu.superior').append(`<div class="close-menu"><img src="https://cdn.awsli.com.br/2923/2923109/arquivos/close.svg" alt="fechar"/></div>`);
+  
+  
+  $(document).on('click', '.close-menu', function () {
+    $('.menu.superior .nivel-um.active').removeClass('active');
+  });
+  
+  $(document).on('click', '.h-menu', function () {
+    $('.menu.superior .nivel-um').addClass('active');
+  });
+  
+  $(document).on('click', '.h-search', function () {
+    $('.conteudo-topo > .inferior').toggleClass('active');
+  });
+  
+  $('.h-menu').before($('#cabecalho .conteudo-topo .inferior .span4.hidden-phone > .carrinho'));
+  
+  const botaoComprar = document.querySelector('.produto .acoes-produto .comprar');
+  
+  if (!botaoComprar) return;
+  
+  // cria um elemento "sentinela" na posição original do botão
+  const sentinel = document.createElement('div');
+  sentinel.style.height = "1px";
+  
+  botaoComprar.parentNode.insertBefore(sentinel, botaoComprar);
+  
+  const observer = new IntersectionObserver((entries) => {
+  
+    entries.forEach(entry => {
+  
+      // Se NÃO estiver visível na tela → fixa
+      if (!entry.isIntersecting) {
+        botaoComprar.classList.add('comprar-fixo');
+      } 
+      // Se voltou para viewport → normal
+      else {
+        botaoComprar.classList.remove('comprar-fixo');
+      }
+  
+    });
+  
+  }, {
+    root: null,
+    threshold: 0
+  });
+  
+  observer.observe(sentinel);
+  
+  //Fim mobile
   }
-}
-
-// Inicia o processo
-initTheme();
+  
+  });
