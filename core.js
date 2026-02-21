@@ -265,7 +265,19 @@ $(document).ready(function(){
   
   });
   
-  $('.pagina-inicial .vitrine-24033240').before($('.secao-banners .conteiner .banner.hidden-phone'));
+  /* =========================
+   📢 MOVER BANNER PARA VITRINE (CONFIGURÁVEL)
+==========================*/
+
+if (CONFIG.bannerVitrine) {
+
+  const vitrineSelector = `.pagina-inicial .vitrine-${CONFIG.bannerVitrine}`;
+
+  $(vitrineSelector)
+    .before($('.secao-banners .conteiner .banner.hidden-phone'));
+
+}
+
   $('#barraNewsletter .componente .texto-newsletter').prepend($('#barraNewsletter .componente .titulo'));
   
   $(function () {

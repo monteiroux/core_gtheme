@@ -6,6 +6,12 @@
 window.THEME_CONFIG = {
 
   /* =========================
+    BANNER VITRINE
+  ==========================*/
+
+  bannerVitrine: "destaque",
+
+  /* =========================
      📲 WHATSAPP
   ==========================*/
   whatsappNumbers: [
