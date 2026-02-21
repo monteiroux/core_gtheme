@@ -2302,6 +2302,8 @@ div#exibirFormasPagamento .btn.btn-small {
    text-transform: uppercase;
    font-size: 14px;
    font-weight: 600;
+   width: 100%;
+   max-width: 100%;
 }
 
 .identificacao .control-group input {
