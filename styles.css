@@ -2854,6 +2854,31 @@ a.atalho-menu {
    margin-bottom: 20px;
 }
 
+.tabela-carrinho .form-horizontal .controls {
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+}
+
+.tabela-carrinho .form-horizontal .control-group {
+   display: flex;
+   flex-direction: column;
+   text-align: center;
+   justify-content: center;
+}
+
+.tabela-carrinho .form-horizontal .control-group label {
+   text-align: center;
+}
+
+.tabela-carrinho .form-horizontal .control-group:after {
+   display: none;
+}
+
+.tabela-carrinho .form-horizontal .controls .input-append input {
+   width: 100%;
+}
+
 }
 
 
