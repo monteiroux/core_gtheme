@@ -1754,6 +1754,10 @@ background: var(--black);
    .pagina-carrinho #corpo .conteiner {
        padding: 48px;
    }
+
+   .tabela-carrinho form .input-append {
+      display: flex;
+  }
    
    .tabela-carrinho form .input-append #btn-cupom {
       text-shadow: none;
@@ -1761,6 +1765,7 @@ background: var(--black);
       font-size: 14px;
       font-family: 'Chakra Petch', sans-serif;
       font-weight: 600;
+      border-radius: 0;
   }
 
    .finalizar-compra .acao-editar .span12 {
