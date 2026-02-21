@@ -712,6 +712,23 @@ a.h-user {
    margin: 0;
 }
 
+.produto .acoes-produto .comprar .qtde-adicionar-carrinho .qtde-carrinho {
+   width: 100%;
+   box-sizing: border-box;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+}
+
+.produto .acoes-produto .comprar .qtde-adicionar-carrinho .qtde-carrinho-title {
+   top: 10px;
+   left: 20px;
+}
+
+.produto .acoes-produto .comprar .qtde-adicionar-carrinho {
+   position: relative;
+}
+
 .pagina-produto .produto > .row-fluid {
    display: flex;
    align-items: flex-start;
@@ -1738,6 +1755,14 @@ background: var(--black);
        padding: 48px;
    }
    
+   .tabela-carrinho form .input-append #btn-cupom {
+      text-shadow: none;
+      text-transform: uppercase;
+      font-size: 14px;
+      font-family: 'Chakra Petch', sans-serif;
+      font-weight: 600;
+  }
+
    .finalizar-compra .acao-editar .span12 {
        display: flex;
        align-items: center;
