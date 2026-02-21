@@ -2887,6 +2887,18 @@ a.atalho-menu {
 
 @media screen and (min-width: 768px) {
 
+   .identificacao .control-group input {
+      box-shadow: none;
+      width: 100%;
+      box-sizing: border-box;
+  }
+
+
+  .identificacao .control-group .submit-email.botao.principal {
+   max-width: 100%;
+   margin-top: 10px;
+}
+
    .listagem .listagem-item:hover {
       background: #fff;
    }
