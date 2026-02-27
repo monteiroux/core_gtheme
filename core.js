@@ -406,7 +406,7 @@ if (CONFIG.bannerVitrine) {
       /* =========================
          📍 INSERE NA HOME
       ==========================*/
-      $('.pagina-inicial #corpo').after(faqHTML);
+      $('body.pagina-inicial #corpo, body.pagina-produto #corpo').after(faqHTML);
     
     
       /* =========================
