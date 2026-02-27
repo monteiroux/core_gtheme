@@ -3242,6 +3242,8 @@ li.categoria-mais {
    justify-content: center;
    color: #fff;
    border-radius: 0!important;
+   font-weight: 600;
+   font-size: 14px;
 }
 .pagination ul {
    display: flex;
@@ -3253,4 +3255,8 @@ li.categoria-mais {
    align-items: center;
    justify-content: center;
    width: 100%;
+}
+
+.pagination ul>li>a:hover, .pagination ul>li>a:focus, .pagination ul>.active>a, .pagination ul>.active>span {
+   background: var(--brand-color);
 }
