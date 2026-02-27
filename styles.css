@@ -3278,3 +3278,15 @@ li.categoria-mais {
 #_sincero_widget * {
    color: #fff;
 }
+
+.review-card {}
+
+div#_trustvox_colt .review-card {
+    background: none;
+    border: 1px solid rgba(255,255,255,.2);
+    border-radius: 0;
+}
+
+div#_trustvox_colt .review-card * {
+    color: #fff;
+}
