@@ -3218,3 +3218,39 @@ li.categoria-mais {
 .submenu-mais > li:after {
 	display: none !important;
 }
+
+/* Ordenar listagem */
+
+.ordenar-listagem.topo .pagination {
+   display: none;
+}
+
+.pagination ul>.active>a {
+   background: var(--black);
+   border: 1px solid var(--brand-color);
+   color: #fff;
+}
+
+.pagination ul>li>a {
+   background: var(--black);
+   border: 1px solid rgba(255,255,255,.2);
+   width: 44px;
+   height: 44px;
+   box-sizing: border-box;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   color: #fff;
+   border-radius: 0!important;
+}
+.pagination ul {
+   display: flex;
+   gap: 10px;
+}
+
+.pagination {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   width: 100%;
+}
