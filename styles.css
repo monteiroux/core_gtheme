@@ -653,6 +653,11 @@ a.h-user {
    font-weight: 600;
 }
 
+.produto .acoes-produto .preco-produto .titulo {
+   font-size: 24px;
+   font-weight: 600;
+}
+
 .produto .codigo-produto * {
    font-size: 12px;
    font-weight: normal;
@@ -3259,4 +3264,17 @@ li.categoria-mais {
 
 .pagination ul>li>a:hover, .pagination ul>li>a:focus, .pagination ul>.active>a, .pagination ul>.active>span {
    background: var(--brand-color);
+}
+
+.pagina-pagina .conteudo p, .pagina-pagina .conteudo span, .pagina-pagina .conteudo b, .pagina-pagina .conteudo h1, .pagina-pagina .conteudo h2, .pagina-pagina .conteudo h3, .pagina-pagina .conteudo h4, .pagina-pagina .conteudo strong {
+   background-color: transparent !important;
+   color: #fff;
+}
+
+#descricao span, #descricao strong, #descricao p, #descricao b, #descricao h1, #descricao h2, #descricao h3, #descricao h4, #descricao h5 {
+   color: #fff!important;
+}
+
+#_sincero_widget * {
+   color: #fff;
 }
