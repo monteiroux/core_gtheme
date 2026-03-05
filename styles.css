@@ -2323,6 +2323,10 @@ div#exibirFormasPagamento .btn.btn-small {
    padding: 12px 32px;
 }
 
+.pagina-categoria .breadcrumbs {
+   padding: 12px 0px;
+}
+
 @media screen and (max-width: 768px) {
 
    .pagina-busca .ordenar-listagem.topo {
