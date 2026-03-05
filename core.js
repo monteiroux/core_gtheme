@@ -511,6 +511,8 @@ if (CONFIG.bannerVitrine) {
       });
     
     });
+
+    $('.pagina-busca .ordenar-listagem.topo').prepend($('.pagina-busca .listagem > .titulo'));
   
   if ($(window).width() > 768) {
   //Desktop

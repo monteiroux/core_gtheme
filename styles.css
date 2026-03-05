@@ -1931,6 +1931,10 @@ background: var(--black);
    background: #fff;
 }
 
+.li-box-payment * {
+   color: #000 !important;
+}
+
 .campos-pedido .acao-editar button#finalizarCompra {
    height: 80px!important;
    font-weight: 600;
@@ -2289,7 +2293,45 @@ div#exibirFormasPagamento .btn.btn-small {
    padding: 0;
 }
 
+.pagina-busca .coluna.span3 {
+   display: none;
+}
+
+.pagina-busca .conteudo.span9 {
+   width: 100%;
+}
+
+.pagina-busca .conteudo.span9 {
+   width: 100%;
+   box-sizing: border-box;
+   margin: 0;
+}
+
+.pagina-busca button.btn.btn-filtrar {
+    background: var(--black) !important;
+    border: 1px solid var(--brand-color);
+    text-shadow: none;
+    color: var(--white) !important;
+}
+
+.pagina-busca .ordenar-listagem.topo {
+   display: flex;
+   padding: 0 32px 20px;
+}
+
+.breadcrumbs {
+   padding: 12px 32px;
+}
+
 @media screen and (max-width: 768px) {
+
+   .pagina-busca .ordenar-listagem.topo {
+      padding: 0 0 20px;
+  }
+
+  .breadcrumbs {
+   padding: 12px 0;
+}
 
    .pagina-produto .zm-viewer {
       display: none !important;
