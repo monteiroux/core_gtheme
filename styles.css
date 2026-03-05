@@ -2442,6 +2442,7 @@ div#exibirFormasPagamento .btn.btn-small {
    box-sizing: border-box;
    transition: all .5s;
    opacity: 0;
+   overflow: scroll;
 }
 
 .menu.superior .nivel-um.active {
