@@ -2034,6 +2034,10 @@ div#exibirFormasPagamento .btn.btn-small {
    color: #fff !important;
 }
 
+.pagina-pagina ul, .pagina-pagina ol {
+   background: transparent!important;
+}
+
 .menu.superior .nivel-um > li > a {
 	display: flex;
 	align-items: center;
