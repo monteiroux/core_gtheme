@@ -2023,11 +2023,15 @@ div#exibirFormasPagamento .btn.btn-small {
 }
 
 .li-box-payment .accordion-inner {
-   background: #292929;
+   background: var(--white);
 }
 
 .li-box-payment .accordion-inner * {
    font-size: 16px;
+}
+
+.li-box-payment .accordion-inner input {
+   color: #fff !important;
 }
 
 .menu.superior .nivel-um > li > a {
