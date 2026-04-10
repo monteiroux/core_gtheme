@@ -492,6 +492,7 @@ a.h-user {
    white-space: normal;
    text-overflow: ellipsis;
    line-height: 20px;
+   font-size: 16px;
 }
 
 .bandeiras-produto span {
@@ -517,10 +518,17 @@ a.h-user {
 }
 
 .listagem-item .preco-parcela, .listagem-item .desconto-a-vista {
-   font-size: 14px;
+   font-size: 16px;
 }
 
+.listagem .preco-produto>div *, .preco-produto .preco-a-partir .preco-venda:not(.titulo) {
+   font-size: 16px;
+}
 
+.listagem-item .desconto-a-vista strong {
+   font-weight: bold;
+   font-size: 24px;
+}
 
 .listagem-item:hover .acoes-produto {
    bottom: 24px;
@@ -3344,4 +3352,21 @@ div#_trustvox_colt .review-card {
 
 div#_trustvox_colt .review-card * {
     color: #fff;
+}
+
+#avisoCookies .conteiner {
+   background: var(--black);
+}
+
+.pagina-produto .principal .acoes-produto .preco-produto * {
+   font-size: 18px;
+}
+
+.pagina-produto .principal .acoes-produto .preco-produto .desconto-a-vista .titulo {
+   font-size: 26px;
+   font-weight: bold;
+}
+
+.parcelas-produto .accordion .accordion-group .accordion-heading .text-parcelas {
+   font-size: 16px;
 }

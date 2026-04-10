@@ -668,37 +668,37 @@ if (CONFIG.bannerVitrine) {
   
   $('.h-menu').before($('#cabecalho .conteudo-topo .inferior .span4.hidden-phone > .carrinho'));
   
-  const botaoComprar = document.querySelector('.produto .acoes-produto .comprar');
+  // const botaoComprar = document.querySelector('.produto .acoes-produto .comprar');
   
-  if (!botaoComprar) return;
+  // if (!botaoComprar) return;
   
-  // cria um elemento "sentinela" na posição original do botão
-  const sentinel = document.createElement('div');
-  sentinel.style.height = "1px";
+  // // cria um elemento "sentinela" na posição original do botão
+  // const sentinel = document.createElement('div');
+  // sentinel.style.height = "1px";
   
-  botaoComprar.parentNode.insertBefore(sentinel, botaoComprar);
+  // botaoComprar.parentNode.insertBefore(sentinel, botaoComprar);
   
-  const observer = new IntersectionObserver((entries) => {
+  // const observer = new IntersectionObserver((entries) => {
   
-    entries.forEach(entry => {
+  //   entries.forEach(entry => {
   
-      // Se NÃO estiver visível na tela → fixa
-      if (!entry.isIntersecting) {
-        botaoComprar.classList.add('comprar-fixo');
-      } 
-      // Se voltou para viewport → normal
-      else {
-        botaoComprar.classList.remove('comprar-fixo');
-      }
+  //     // Se NÃO estiver visível na tela → fixa
+  //     if (!entry.isIntersecting) {
+  //       botaoComprar.classList.add('comprar-fixo');
+  //     } 
+  //     // Se voltou para viewport → normal
+  //     else {
+  //       botaoComprar.classList.remove('comprar-fixo');
+  //     }
   
-    });
+  //   });
   
-  }, {
-    root: null,
-    threshold: 0
-  });
+  // }, {
+  //   root: null,
+  //   threshold: 0
+  // });
   
-  observer.observe(sentinel);
+  // observer.observe(sentinel);
   
   //Fim mobile
   }
