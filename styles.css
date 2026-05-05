@@ -2369,7 +2369,7 @@ div#exibirFormasPagamento .btn.btn-small {
    text-transform: uppercase;
    font-size: 14px;
    font-weight: 600;
-   width: 100%;
+   width: fit-content;
    max-width: 100%;
 }
 
@@ -2963,7 +2963,7 @@ a.atalho-menu {
 
 
   .identificacao .control-group .submit-email.botao.principal {
-   max-width: 100%;
+   max-width: fit-content;
    margin-top: 10px;
 }
 
